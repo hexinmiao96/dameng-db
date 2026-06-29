@@ -1,0 +1,4 @@
+interface:
+  display_name: "达梦数据库"
+  short_description: "达梦数据库安装迁移、SQL适配、Java集成与运维调优"
+  default_prompt: "使用 $dameng-db 评估并改造达梦数据库迁移、SQL/MyBatis 适配或运维问题。"
