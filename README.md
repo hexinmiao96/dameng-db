@@ -6,8 +6,10 @@ It helps agents work on Dameng database installation, migration, SQL/DDL rewriti
 
 ## Install
 
+Recommended non-interactive install:
+
 ```bash
-npx skills add hexinmiao96/dameng-db -g --skill dameng-db
+npx --yes skills add hexinmiao96/dameng-db -g --skill dameng-db
 ```
 
 List the skill before installing:
@@ -16,10 +18,40 @@ List the skill before installing:
 npx skills add hexinmiao96/dameng-db --list
 ```
 
+### Fallback: Git clone fails
+
+`npx skills add` clones the GitHub repository. If your network can open GitHub in a browser but Git clone fails with errors like `Recv failure: Connection reset by peer` or `Failed to connect to github.com port 443`, install from the GitHub zip archive:
+
+```bash
+tmp_dir="$(mktemp -d)"
+trap 'rm -rf "$tmp_dir"' EXIT
+dest="${CODEX_HOME:-$HOME/.codex}/skills/dameng-db"
+
+curl -L -o "$tmp_dir/dameng-db.zip" \
+  https://codeload.github.com/hexinmiao96/dameng-db/zip/refs/heads/main
+unzip -q "$tmp_dir/dameng-db.zip" -d "$tmp_dir"
+
+if [ -e "$dest" ]; then
+  echo "Destination already exists: $dest"
+  echo "Remove or back it up before reinstalling."
+  exit 1
+fi
+
+mkdir -p "$(dirname "$dest")"
+cp -R "$tmp_dir/dameng-db-main" "$dest"
+```
+
 Verify after installation:
 
 ```bash
 npx skills ls -g --json | jq '.[] | select(.name == "dameng-db")'
+```
+
+Or verify directly:
+
+```bash
+test -f "${CODEX_HOME:-$HOME/.codex}/skills/dameng-db/SKILL.md"
+sed -n '1,12p' "${CODEX_HOME:-$HOME/.codex}/skills/dameng-db/SKILL.md"
 ```
 
 ## When to Use
@@ -64,4 +96,3 @@ Use $dameng-db to check this SQL for reserved words, table aliases, GROUP BY iss
 - The skill is designed for reusable Dameng database work. It intentionally excludes pure project bugs that are unrelated to Dameng compatibility.
 - For production or source databases, use read-only access unless explicit write permission is granted.
 - Public examples use placeholders instead of real passwords or private network addresses.
-
