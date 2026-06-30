@@ -2,7 +2,7 @@
 name: dameng-db
 description: >-
   达梦数据库技能包（DM8）。覆盖达梦安装部署、表空间/用户管理、Oracle/MySQL/PostgreSQL/SQL Server/DB2→达梦迁移、SQL/DDL 改写、Java/Spring/MyBatis/MyBatis-Plus/Hibernate 适配、PL/SQL、系统包、性能优化、运维监控和集群架构。
-  Use when: (1) 安装或配置达梦数据库, (2) 从其他数据库迁移到达梦, (3) 改造达梦兼容 SQL/MyBatis XML/Java 数据源, (4) 处理达梦迁移后的保留字、表别名、GROUP、IDENTITY、自增 ID、字符集、Excel 导入回归等问题, (5) 进行达梦 SQL 开发、性能调优、运维管理或集群方案核对。
+  Use when: (1) 安装或配置达梦数据库, (2) 从其他数据库迁移到达梦, (3) 改造达梦兼容 SQL/MyBatis XML/Java 数据源, (4) 处理达梦迁移后的保留字、表别名、GROUP、IDENTITY、自增 ID、字符集、字段大小写等问题, (5) 进行达梦 SQL 开发、性能调优、运维管理或集群方案核对。
 ---
 
 # 达梦数据库技能包（DM8）
@@ -17,7 +17,7 @@ description: >-
 
 迁移工作按三类 reference 分工：`migration.md` 负责迁移流程、SQL 改写和校验清单；`app-dev-java.md` 负责 Java/Spring/MyBatis/MyBatis-Plus 适配；`post-migration-triage.md` 负责迁移后问题台账研判，区分达梦系统性风险和非达梦迁移问题。`migration-faq.md` 用于补充现场报错和源库差异。
 
-发布或交付迁移结论时，必须说明哪些问题已经沉淀为达梦迁移规则，哪些只是非达梦迁移问题。`batchInsert` 主键列、Excel 公式/空行过滤等可复用迁移风险可以写入复盘；纯项目问题只保留排除结论，不纳入通用达梦技能。
+发布或交付迁移结论时，必须说明哪些问题已经沉淀为达梦迁移规则，哪些只是非达梦迁移问题。`batchInsert` 主键列、表别名/同名字段、`GROUP BY`、MyBatis `<if>` 空串等可复用迁移风险可以写入复盘；文件解析、会话连接、工具类封装等纯项目问题只保留排除结论，不纳入通用达梦技能。
 
 ## 使用入口
 
